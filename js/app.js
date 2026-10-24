@@ -27,11 +27,12 @@ function fill(e,next){
   const ev$=$("ev"); ev$.classList.toggle("next",next);
   const brk=!next&&/^(استراحة|الغداء)/.test(e.t);ev$.classList.toggle("brk",brk);
   $("lb").textContent=next?"الحدث القادم":brk?"وقت راحة":"يحدث الآن في المسرح";
-  const h=$("tt"); h.className=e.t.length>85?"s":e.t.length>40?"m":"";
+  const h=$("tt"); h.className=e.t.length>110?"xs":e.t.length>85?"s":e.t.length>40?"m":"";
   h.innerHTML=e.t.split(" ").map((w,i)=>`<span style="animation-delay:${i*.08}s">${w}</span>`).join("");
   const d=e.t.split(" ").length*.08+.3;
   $("ls").innerHTML=e.l.map((x,i)=>`<li style="animation-delay:${d+i*.25}s">${x}</li>`).join("");
   $("tm").textContent=e.a+" – "+e.b;
+  fit();
   if(window.gsap)reveal();
 }
 let back=0;
@@ -77,10 +78,17 @@ function openNext(){
   const m=Math.round((e.s-n)/60),h=Math.floor(m/60);
   $("npc").textContent=m>=720?"":m<1?"يبدأ بعد لحظات":"يبدأ بعد "+(h?h+" ساعة"+(m%60?" و "+(m%60)+" دقيقة":""):m+" دقيقة");
  }else{t.textContent="انتهت فعاليات المؤتمر، شكراً لحضوركم";t.className="";$("npm").textContent="";$("npu").innerHTML="";$("npc").textContent=""}
- const p=$("np");p.classList.add("on");p.setAttribute("aria-hidden","false");
+ fitPanel();const p=$("np");p.classList.add("on");p.setAttribute("aria-hidden","false");
  if(window.gsap){gsap.fromTo(".pn",{y:50,scale:.94,opacity:0},{y:0,scale:1,opacity:1,duration:.6,ease:"power3.out"});
   gsap.fromTo("#npu li",{opacity:0,x:50},{opacity:1,x:0,duration:.6,ease:"power2.out",stagger:.12,delay:.3})}
  clearTimeout(ntm);ntm=setTimeout(closeNext,20000)}
 $("nb").onclick=openNext;$("nx").onclick=closeNext;$("np").onclick=e=>{if(e.target.id==="np")closeNext()};
 addEventListener("keydown",e=>{if(e.key==="Escape")closeNext()});
 let mvt;addEventListener("mousemove",()=>{document.body.classList.add("mv");clearTimeout(mvt);mvt=setTimeout(()=>document.body.classList.remove("mv"),3000)});
+
+/* ===== تصغير الخط تلقائياً لو النص طويل ===== */
+function fit(){const vm=Math.min(innerWidth,innerHeight)/100,l=[...$("ls").children],top=document.querySelector(".foot").getBoundingClientRect().top-2*vm;let z=3.4;
+ l.forEach(x=>x.style.fontSize="");
+ while(z>2.2&&l.length&&$("ls").getBoundingClientRect().bottom>top){z-=.2;l.forEach(x=>x.style.fontSize=z+"vmin")}}
+function fitPanel(){const p=document.querySelector(".pn"),l=[...$("npu").children];let z=3.5;l.forEach(x=>x.style.fontSize="");
+ while(z>2.2&&p.scrollHeight>p.clientHeight+1){z-=.2;l.forEach(x=>x.style.fontSize=z+"vmin")}}
