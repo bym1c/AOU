@@ -83,7 +83,7 @@ function openNext(){
   gsap.fromTo("#npu li",{opacity:0,x:50},{opacity:1,x:0,duration:.6,ease:"power2.out",stagger:.12,delay:.3})}
  clearTimeout(ntm);ntm=setTimeout(closeNext,20000)}
 $("nb").onclick=openNext;$("nx").onclick=closeNext;$("np").onclick=e=>{if(e.target.id==="np")closeNext()};
-addEventListener("keydown",e=>{if(e.key==="Escape")closeNext()});
+addEventListener("keydown",e=>{if(e.key==="Escape"){closeNext();closeQ()}else if(e.key==="1"||e.key==="2")openQ(+e.key-1)});
 let mvt;addEventListener("mousemove",()=>{document.body.classList.add("mv");clearTimeout(mvt);mvt=setTimeout(()=>document.body.classList.remove("mv"),3000)});
 
 /* ===== تصغير الخط تلقائياً لو النص طويل ===== */
@@ -92,3 +92,11 @@ function fit(){const vm=Math.min(innerWidth,innerHeight)/100,l=[...$("ls").child
  while(z>2.2&&l.length&&$("ls").getBoundingClientRect().bottom>top){z-=.2;l.forEach(x=>x.style.fontSize=z+"vmin")}}
 function fitPanel(){const p=document.querySelector(".pn"),l=[...$("npu").children];let z=3.5;l.forEach(x=>x.style.fontSize="");
  while(z>2.2&&p.scrollHeight>p.clientHeight+1){z-=.2;l.forEach(x=>x.style.fontSize=z+"vmin")}}
+
+/* ===== رموز QR ===== */
+let qtm;
+function closeQ(){clearTimeout(qtm);$("qm").classList.remove("on")}
+function openQ(i){const q=QR[i];if(!q||!SHOW_QR)return;$("qi").src=q.src;$("qt").textContent=q.title;$("qs").textContent=q.sub||"";$("qs").style.display=q.sub?"":"none";closeNext();$("qm").classList.add("on");
+ if(window.gsap)gsap.fromTo(".qc",{scale:.85,y:20},{scale:1,y:0,duration:.25,ease:"power3.out"});clearTimeout(qtm);qtm=setTimeout(closeQ,QR_AUTOCLOSE*1000)}
+if(SHOW_QR){document.body.classList.add("qr-"+QR_SIDE);QR.forEach((q,i)=>{const b=document.createElement("button");b.type="button";b.className="qb";b.innerHTML='<img alt=""><span></span>';b.firstChild.src=q.src;b.lastChild.textContent=q.title;b.onclick=()=>openQ(i);$("qd").appendChild(b)})}
+$("qm").onclick=closeQ;
