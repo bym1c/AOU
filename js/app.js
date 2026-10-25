@@ -15,7 +15,7 @@ const lgd=s=>$("lg").style.setProperty("--d",s+"s");lgd(LOGO_EACH);
 function setFly(){const vm=Math.min(innerWidth,innerHeight)/100,t=$("co").children;
  [...$("lg").children].forEach((b,i)=>{const r=t[i].getBoundingClientRect();
   b.style.setProperty("--dx",(r.left+r.width/2-innerWidth/2)+"px");b.style.setProperty("--dy",(r.top+r.height/2-innerHeight/2)+"px");b.style.setProperty("--sc",r.width/(62*vm))})}
-const UNI=Math.max(0,LOGOS.findIndex(l=>l.light));let cl=[0],ci=0;
+const UNI=Math.max(0,LOGOS.findIndex(l=>/aou/.test(l.uri)));let cl=[0],ci=0;
 function rot(){const k=cl[ci++%cl.length];[...$("st").children,...$("dt").children].forEach((e,j)=>e.classList.toggle("act",j%LOGOS.length===k))}
 function setCp(multi){cl=multi?LOGOS.map((_,i)=>i):[UNI];ci=0;rot()}
 setInterval(rot,3200);

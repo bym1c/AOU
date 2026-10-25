@@ -1,6 +1,6 @@
 /* الإعدادات والجدول — عدّل هنا فقط */
-const LOGOS=[{uri:"assets/logos/research-council.png",light:false},{uri:"assets/logos/arab-league.png",light:false},{uri:"assets/logos/oman-natcom.png",light:false},{uri:"assets/logos/aou.png",light:true},{uri:"assets/logos/conference.png",light:false}];
-const BUILDING="assets/building.png";
+const LOGOS=[{uri:"assets/logos/research-council.png",light:false},{uri:"assets/logos/arab-league.png",light:false},{uri:"assets/logos/oman-natcom.png",light:false},{uri:"assets/logos/aou.png",light:false},{uri:"assets/logos/conference.png",light:false}];
+const BUILDING="assets/building.jpg";
 
 /* ===== الإعدادات (بالثواني) — دورة كاملة كل 10 دقايق ===== */
 /* ===== الإعدادات (بالثواني) =====
