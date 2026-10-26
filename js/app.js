@@ -100,3 +100,11 @@ function openQ(i){const q=QR[i];if(!q||!SHOW_QR)return;$("qi").src=q.src;$("qt")
  if(window.gsap)gsap.fromTo(".qc",{scale:.85,y:20},{scale:1,y:0,duration:.25,ease:"power3.out"});clearTimeout(qtm);qtm=setTimeout(closeQ,QR_AUTOCLOSE*1000)}
 if(SHOW_QR){document.body.classList.add("qr-"+QR_SIDE);QR.forEach((q,i)=>{const b=document.createElement("button");b.type="button";b.className="qb";b.innerHTML='<img alt=""><span></span>';b.firstChild.src=q.src;b.lastChild.textContent=q.title;b.onclick=()=>openQ(i);$("qd").appendChild(b)})}
 $("qm").onclick=closeQ;
+
+/* ===== ملء الشاشة: زر، نقرتين على الشاشة، أو حرف F ===== */
+const isFS=()=>document.fullscreenElement||document.webkitFullscreenElement;
+function toggleFS(){const d=document,e=d.documentElement;if(isFS())(d.exitFullscreen||d.webkitExitFullscreen).call(d);else(e.requestFullscreen||e.webkitRequestFullscreen).call(e)}
+$("fs").onclick=toggleFS;
+addEventListener("dblclick",e=>{if(!e.target.closest("button,#np,#qm"))toggleFS()});
+addEventListener("keydown",e=>{if(e.code==="KeyF"&&!e.ctrlKey&&!e.metaKey)toggleFS()});
+["fullscreenchange","webkitfullscreenchange"].forEach(n=>document.addEventListener(n,()=>$("fs").classList.toggle("on",!!isFS())));

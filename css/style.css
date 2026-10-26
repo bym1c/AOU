@@ -83,3 +83,9 @@ body.qr-left #ev{padding-left:19vmin}body.qr-right #ev{padding-right:19vmin}
 .qc{background:#fff;color:var(--navy);border-radius:4vmin;padding:4vmin 5vmin;text-align:center;box-shadow:0 6vmin 20vmin #000a;max-width:90vw}
 .qc img{display:block;width:min(54vmin,52vh);height:min(54vmin,52vh);object-fit:contain;margin:0 auto 3vmin}
 .qc h3{font-size:4.6vmin;font-weight:800;line-height:1.4}.qc p{font-size:3vmin;color:#4a5b70;margin-top:1vmin}
+#tb{position:fixed;top:3.5vmin;right:4vmin;z-index:6;display:flex;align-items:center;gap:1.4vmin}
+#tb #nb{position:static}
+#fs{width:7.6vmin;height:7.6vmin;padding:1.7vmin;border-radius:50%;border:.3vmin solid #E8E6DF45;background:#002D58b3;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--off);transition:background .3s,color .3s,transform .3s}
+#fs:hover{background:var(--gold);color:var(--navy);transform:scale(1.06)}
+#fs .c,#fs.on .e{display:none}#fs.on .c{display:inline}
+body.mv #fs{cursor:pointer}
